@@ -1,1 +1,1 @@
-"# Analytics for sales" 
+An Analytics app for Sales using Django Framework
