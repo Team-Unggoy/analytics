@@ -1,0 +1,38 @@
+{% extends 'login_base.html' %}
+
+
+{% block content %}
+    <form class="login-form" method="POST" action="{% url 'login_form' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" class="form-control" id="first_name" name='first_name' placeholder="First Name" required>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="Last Name" name='Last Name' placeholder="Last Name" required>
+        </div>
+        <div style="border-top: 1px solid #dde; padding-top: 1em;">
+            <p class="text-center"><strong>Login Details</strong></p>
+            <div class="form-group">
+                <input type="text" class="form-control" id="username" name='username' placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" name='password' placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="confirm_pass" name='confirm_pass' placeholder="Confirm Password" required>
+            </div>
+        </div>
+        
+        
+        <button type="submit" class="btn btn-secondary btn-block">Submit</button>
+    </form>
+    <br>
+    <p class="text-center">
+        <small>
+            Have an account? <a href="{% url 'login' %}">Login</a><br>
+            <a href="/">Back to Home</a>
+        </small>
+    </p>
+
+    
+{% endblock %}
