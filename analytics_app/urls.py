@@ -1,5 +1,5 @@
 from django.urls import path
-from analytics_app.views import LoginView, logout, DashboardView
+from analytics_app.views import LoginView, logout, DashboardView, signup
 from django.views.generic import TemplateView
 
 
@@ -11,4 +11,5 @@ urlpatterns = [
     
     path('logout/', logout, name="logout"),
     path('loginform/', LoginView.as_view(), name="login_form"),
+    path('signupform/', signup, name="signup_form"),
 ]

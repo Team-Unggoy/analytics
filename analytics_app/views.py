@@ -18,7 +18,7 @@ class LoginView(View):
             auth.login(request, user)
             return redirect("dashboard")
         else:
-            messages.info(request, "Invalid credentials")
+            messages.error(request, "Invalid credentials")
             return redirect("login")
             
 class DashboardView(TemplateView):
@@ -28,13 +28,26 @@ class DashboardView(TemplateView):
         if request.user.is_authenticated:
             return render(request, self.template_name, {})
         else:
-            messages.info(request, "Access Denied")
+            messages.error(request, "Access Denied")
             return redirect("login")
         
 
 
-class SignupView(CreateView):
-    model = User
+def signup(request):
+    if request.method == "POST":
+        new_user = User.objects.create_user(
+            username=request.POST['username'], 
+            email=request.POST['email'], 
+            password=request.POST['password'],
+            first_name=request.POST['first_name'],
+            last_name=request.POST['last_name'])
+        
+        if new_user:
+            messages.success(request, "You have created new account. Enter credentials to login.")
+            return redirect("login")
+        else:
+            raise("Did not create user")
+
 
 def logout(request):
     auth.logout(request)

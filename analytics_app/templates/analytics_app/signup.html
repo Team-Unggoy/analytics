@@ -2,13 +2,16 @@
 
 
 {% block content %}
-    <form class="login-form" method="POST" action="{% url 'login_form' %}">
+    <form class="login-form" method="POST" action="{% url 'signup_form' %}">
         {% csrf_token %}
         <div class="form-group">
             <input type="text" class="form-control" id="first_name" name='first_name' placeholder="First Name" required>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" id="Last Name" name='Last Name' placeholder="Last Name" required>
+            <input type="text" class="form-control" id="last_name" name='last_name' placeholder="Last Name" required>
+        </div>
+        <div class="form-group">
+            <input type="email" class="form-control" id="email" name='email' placeholder="Email" required>
         </div>
         <div style="border-top: 1px solid #dde; padding-top: 1em;">
             <p class="text-center"><strong>Login Details</strong></p>
@@ -19,12 +22,11 @@
                 <input type="password" class="form-control" id="password" name='password' placeholder="Password" required>
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" id="confirm_pass" name='confirm_pass' placeholder="Confirm Password" required>
+                <input type="password" class="form-control" id="confirm_pass" name='confirm_pass'placeholder="Confirm Password" required>
+                <small><p class="msg" id="msg"></p></small>
             </div>
-        </div>
-        
-        
-        <button type="submit" class="btn btn-secondary btn-block">Submit</button>
+        </div>        
+        <button type="submit" class="btn btn-secondary btn-block" id="submit_btn" disabled>Submit</button>
     </form>
     <br>
     <p class="text-center">
@@ -34,5 +36,20 @@
         </small>
     </p>
 
-    
+{% endblock %}
+
+{% block js %}
+    <script>
+        $("#confirm_pass").change(function() {
+            var pwd = $('#password').val()
+            var confirm_pwd = $('#confirm_pass').val()
+            if (pwd == confirm_pwd){
+                $('#msg').text("Password matched").css({"color": "green"})
+                $("#submit_btn").attr("disabled", false)
+            }else{
+                $('#msg').text("Password didn't matched").css({"color": "red"})
+                $("#submit_btn").attr("disabled", true)
+            }
+        });
+    </script>
 {% endblock %}
